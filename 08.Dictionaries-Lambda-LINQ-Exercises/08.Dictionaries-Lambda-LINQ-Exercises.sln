@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.Phonebook", "01.Phonebook\01.Phonebook.csproj", "{5B81D3F7-3A19-4D36-9678-BFCB6F17A22D}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.Serbian Unleashed", "10.Serbian Unleashed\10.Serbian Unleashed.csproj", "{3D81B680-13C0-4C9B-A88D-D0B700259228}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11.Dragon Army", "11.Dragon Army\11.Dragon Army.csproj", "{20481FCE-A08B-4B9F-B33E-7ABAC0953C49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11.Drago", "11.Drago\11.Drago.csproj", "{A695D96A-5634-461E-B397-681DCF396A00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,8 +77,15 @@ Global
 		{20481FCE-A08B-4B9F-B33E-7ABAC0953C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20481FCE-A08B-4B9F-B33E-7ABAC0953C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20481FCE-A08B-4B9F-B33E-7ABAC0953C49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A695D96A-5634-461E-B397-681DCF396A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A695D96A-5634-461E-B397-681DCF396A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A695D96A-5634-461E-B397-681DCF396A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A695D96A-5634-461E-B397-681DCF396A00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {04EA5AC4-57E9-40B1-9121-4990DD3912AC}
 	EndGlobalSection
 EndGlobal
