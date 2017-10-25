@@ -1,0 +1,66 @@
+1.Допълване на стринг до определена дължина със символ.
+нула
+попълване
+допълване
+символи
+символ
+
+string firstNumber = Console.ReadLine().TrimStart(new char[] { '0' });   2566698
+string secondNumber = Console.ReadLine().TrimStart(new char[] { '0' });  111
+
+if (firstNumber.Length > secondNumber.Length)
+{
+    secondNumber = secondNumber.PadLeft(firstNumber.Length, '0');
+}
+else
+{
+    firstNumber = firstNumber.PadLeft(secondNumber.Length, '0');
+}
+
+Console.WriteLine(firstNumber);   -->    2566698
+Console.WriteLine(secondNumber);  -->    0000111
+--------------------------------------------------------------------------------------------------
+2. Да се определи кой е по-дългия стринг при неопределен инпут.
+
+по-дълаг
+по-къс
+сравнение
+
+var first = Console.ReadLine().TrimStart(new char[] { '0' }).ToList();
+var second = Console.ReadLine().TrimStart(new char[] { '0' }).ToList();
+
+var shorter = first.Count > second.Count ? second : first;
+var longer = first.Count > second.Count ? first : second;
+---------------------------------------------------------------------------------------------------
+3.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
