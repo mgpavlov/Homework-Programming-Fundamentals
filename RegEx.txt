@@ -1,0 +1,150 @@
+[0-9]+ matches non-empty sequence of digits
+[A-Z][a-z]* matches a capital + small letters
+\s+ matches whitespace (non-empty)
+\S+ matches non-whitespace
+
+[A-Z][a-z]+ [A-Z][a-z]+ - \w+@\w+\.\w+
+matches
+Alex Georgiev - alex@mail.com 
+
+[nvj] matches any character that is either n, v or j
+node.js v0.12.2
+n    j   v
+
+[^abc] – matches any character that is not a, b or c
+
+[0-9] – character range: matches any digit from 0 to 9
+
+\w – matches any word character (a-z, A-Z, 0-9, _)
+
+\W – matches any non-word character (the opposite of \w)
+" &*^"
+
+\s – matches any white-space character
+
+\S – matches any non-white-space character (opposite of \s)
+
+\d – matches any decimal digit
+
+\D – matches any non-decimal digit (opposite of \d)
+
+* – matches the previous element zero or more times.
+\+\d*                         +359894373196 a+b
+                              +359894373196  +
+
++ - matches the prrvious element one or more times.
+\+\d+                         +359894373196 a+b
+                              +359894373196  (няма цифра след +, затова не мачва)
+
+? - matches the previous element zero or one time							  
+\+\d?                         +359894373196 a+b
+                              +3             +
+{3} - matches the previous element exactly 3 times							  
+\+\d{3}                         +359894373196 a+b
+								+359          
+Tab - \t; new line - \n; 
+Name:	Peter
+Phone:    +359894373196		
+Name:\t\w+\nPhone:\s*\+\d+
+
+^ - the matche must start at the beginning of the text or line ///OR/// [^abc] – matches any character that is not a, b or c
+$ - the match must occure at the end of the text or line
+			Example: ^\w{6, 12}$
+jeff_butt            jeff_butt
+short
+johnny               johnny
+too_long_username
+!lleg@l_ch@rs
+
+Use multiline matching (/m flag) to match the end of line
+
+\b[A-Z][a-z]+\s[A-Z][a-z]+\b pattern for full name in sequences: Petar Petrov,							  
+\b ......\b  намира конкретен патърн заобиколен от спейсове							  
+							  
+Наименоване на групи:    (?<day>\d{2})-(?<month>\w{3})-(?<year>\d{4})  19-Jan-1981
+
+<c>.+?<\/c>   - lazy construction; - хваща в един текст всички възможни матчове с тази конструкция (не м/у първи и последен подобен елемент а разбити)
+<c>.....<c>....<c>.....<c>...<c>....<c>
+<c>.....<c>	   <c>.....<c>   <c>....<c>
+
+<c>.+<\/c>	  - greedy construction;		хваща по дефолт всичко оградено м/у първи и последен подобен елемент. 
+<c>.....<c>....<c>.....<c>...<c>....<c>			  
+<c>.................................<c>
+========================================================================================================================================================
+Using .NET Built in RegEX
+ Li
+var text = ".................";// List<string> text = new List<string>(){"asdsda", "asdasdas", "qwdasdasd", ...};
+string pattern = @".............."
+Regex regex = new Regex (pattern);
+foreach (var txt in text)
+{
+//Console.WriteLine(regex.IsMatch(txt));
+}
+-------------------------------------------------
+bool containsValidText = regex.IsMatch(text);
+cw(containsValidText) = True/False;
+-------------------------------------------------
+Cheking for valid MATCH in single text.
+Match(string text)
+
+string pattern = @"([A-Z][a-z]+): (\d+)"; (има 3 групи)
+Match match = regex.Match(text);
+cw(match.Groups.Count)
+cw(match.Groups[0](1, 2, 3,...))
+-------------------------------------------------
+Cheking for MATCHES
+
+MatchCollection matches = regex.Matches(text);
+
+foreach(Match match in matches){....}
+--------------------------------------------------
+Replacing With Regex
+
+string text = "Nakov: 123, Branson: 456";
+string pattern = @"\d{3}";
+string replacement = "999";
+
+Regex regex = new Regex(pattern);
+string result = regex.Replace(text, replacement);
+
+Console.WriteLine(result);
+// Nakov: 999, Branson: 999
+
+<ul> <li> <a href="http://softuni.bg">SoftUni</a></li></ul>   --->  <ul> <li> [URL href="http://softuni.bg"]SoftUni[/URL]</li></ul>
+string text = Console.ReadLine();
+
+while (text != "end")
+{
+  string pattern = @"<a.*?href.*?=(.*)>(.*?)<\/a>"; 
+  string replacement = @"[URL href=$1]$2[/URL]";
+  string replaced = Regex.Replace(
+    text, pattern, replacement);
+  Console.WriteLine(replaced);
+
+  text = Console.ReadLine();
+}
+----------------------------------------
+using Multiline:
+var r = new Regex(pattern, RegexOptions.Multiline)
+-----------------------------------------
+Splitting with RegEX
+Split(string text) – splits the text by the pattern
+
+Returns string[] 
+string text = "1   2 3      4";
+string pattern = @"\s+";
+
+string[] results = Regex.Split(text, pattern);
+Console.WriteLine(string.Join(", ", results)); 
+// 1, 2, 3, 4
+=========================================================================================
+Backrefarence
+
+var pattern = @"\+359([ -])2\1\d{3}\1\d{4}\b";
+Това нещо се нарича backreference и \1 се заменя със символът от първата група , който е бил използван. Можеш да прочетеш повече за това тук: http://www.regular-expressions.info/backref.html.
+------------------------
+•	Has either whitespace before it or the start of the string (match either ^ or what’s called a positive lookbehind). 
+The entire syntax for the beginning of your RegEx might look something like “(^|(?<=\s))”.
+------------------------
+•	Has either whitespace before it or the end of the string (match either $ or what’s called a positive lookahead). 
+The syntax for the end of the RegEx might look something like “($|(?=\s))”.
