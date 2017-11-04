@@ -49,29 +49,124 @@ if(!int.TryParse(tokens[1], out var number))
                 continue;
             }
 ----------------------------------------------------------------------------------------------------
+Reverse string
+Ако директно се recipient.Reverse() при принтирането има проблем!!!
+
+var recipient = firstQuery.ToCharArray().Reverse(); 
+messages.Add($"{String.Join("",recipient)}");
+--------------------------------------------------------------------
+
+Подмяна в стринг на всички малки букви с ГОЛЕМИ и обратното ГОЛЕМИ --> малки;
+
+StringBuilder frequency = new StringBuilder();
+
+foreach (var c in secondQuery)
+{
+    if (Char.IsUpper(c))
+    {
+        frequency.Append(Char.ToLower(c));
+    }
+    else if (Char.IsLower(c))
+    {
+        frequency.Append(Char.ToUpper(c));
+    }
+    else
+    {
+        frequency.Append((c));
+    }
+}
+----------------------------------------------------------
+Compare Сравнение на стрингове
+
+string s1 = "Здрасти";
+string s2 = "Здрасти";
+Console.WriteLine(s1 == s2); //True
+s1 = "Здрасти";
+s2 = "Как си";
+Console.WriteLine(s1 == s2); //False
+
+s1 = "Здрасти";
+s2 = "Здрасти";
+Console.WriteLine(s1.CompareTo(s2)); //0
+s1 = "Alex";
+s2 = "Michael";
+Console.WriteLine(s1.CompareTo(s2)); //-1  А е преди M в азбуката
+s1 = "Michael";
+s2 = "Alex";
+Console.WriteLine(s1.CompareTo(s2)); //+1  А е преди M в азбуката
+
+int result = string.Compare(str1, str2, true);
+// result == 0 if str1 equals str2
+// result < 0 if str1 is before str2
+// result > 0 if str1 is after str2
+
+----------------------------------------------------------------------------------------------
+Взимане на конкретен индекс
+
+string email = "vasko@gmail.org";
+int firstIndex = email.IndexOf("@"); // 5 търсим индекса на @
+int secondIndex = email.IndexOf("a", 2); // 8 търсим вторият индекс 'а'
+int notFound = email.IndexOf("/"); // -1 търсим индекса на /, няма такъв затова резултат -1;
+
+визмане на последен индекс съдържащ "нещо" в стринга:
+0123456789............          16(b)
+string verse = "To be or not to be…";
+int lastIndex = verse.LastIndexOf("be"); // 16
+----------------------------------------------------------------------------------------------
+субстринг substring:
+
+str.Substring(int startIndex, int length)
+                    012345678
+string filename = @"C:\Pics\Rila2017.jpg";
+string name = filename.Substring(8, 8); взима 8 ми индекс включително + още 7, общо 8 е новият стринг
+// name == "Rila2017"
+
+str.Substring(int startIndex)
+
+string filename = @"C:\Pics\Rila2017.jpg";
+string nameAndExtension = filename.Substring(8); взима от 8ми до края;
+// nameAndExtension == "Rila2017.jpg"
+-----------------------------------------------------------------------------------------------
+str.Replace(match, replacement) 
+string cocktail = "Vodka + Martini + Cherry";
+string replaced = cocktail.Replace("+", "and");
+// Vodka and Martini and Cherry
+----------------------------------------------------------------------------------------------
+str.Remove(int index, int length) 
+string price = "$ 1234567";
+string lowPrice = price.Remove(2, 3);
+// $ 4567
+-------------------------------------------
+StringBuilder()
+Capacity holds the currently allocated space (in characters)
+Length holds the length of the string in the buffer
+
+StringBuilder Operations – Examples:
+
+var builder = new StringBuilder(100);
+builder.Append("Hello Maria, how are you?");
+Console.WriteLine(builder); // Hello Maria, how are you?
+builder[6] = 'D';
+Console.WriteLine(builder); // Hello Daria, how are you?
+builder.Remove(5, 6);
+Console.WriteLine(builder); // Hello, how are you?
+builder.Insert(5, " Peter");
+Console.WriteLine(builder); // Hello Peter, how are you?
+builder.Replace("Peter", "George");
+Console.WriteLine(builder); // Hello George, how are you?
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+public static string ReverseString(string str)
+{
+  StringBuilder sb = new StringBuilder();
+  for (int i = str.Length - 1; i >= 0; i--)
+  {
+    sb.Append(str[i]);
+  }
+  return sb.ToString();
+}
 
 
 

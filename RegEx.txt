@@ -70,6 +70,11 @@ Use multiline matching (/m flag) to match the end of line
 <c>.+<\/c>	  - greedy construction;		хваща по дефолт всичко оградено м/у първи и последен подобен елемент. 
 <c>.....<c>....<c>.....<c>...<c>....<c>			  
 <c>.................................<c>
+----------------------------------------------------------------------------
+(?=foo)	Lookahead	Asserts that what immediately follows the current position in the string is foo
+(?<=foo)	Lookbehind	Asserts that what immediately precedes the current position in the string is foo
+(?!foo)	Negative Lookahead	Asserts that what immediately follows the current position in the string is not foo
+(?<!foo)	Negative Lookbehind	Asserts that what immediately precedes the current position in the string is not foo
 ========================================================================================================================================================
 Using .NET Built in RegEX
  Li
