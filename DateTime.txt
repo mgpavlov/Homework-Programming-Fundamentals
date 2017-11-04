@@ -1,0 +1,2 @@
+DateTime date = DateTime.ParseExact(Console.ReadLine(), "d/M/yyyy", null(или CultureInfo.InvariantCulture)); - четем дата от конзолата;
+decimal daysInMonth = DateTime.DaysInMonth(date.Year, date.Month); взимаме броят дни в конкретен месец и година;

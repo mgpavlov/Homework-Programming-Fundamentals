@@ -1,0 +1,299 @@
+class Program
+{
+    //Създаваме КЛАС
+    class Legion
+    {
+        public string Name { get; set; }
+        public long LastActivities { get; set; }
+        public new Dictionary<string, long> Soldiers { get; set; }
+    }
+    static void Main(string[] args)
+    {
+        var n = int.Parse(Console.ReadLine());
+        //създаваме лист в който да вкараме обектите от класа
+        var legionsList = new List<Legion>();
+
+        // попълване на параметрите на класа
+        for (int i = 0; i < n; i++)
+        {
+            //разделяме входящият стринг на тоукъни
+            var inputInfo = Console.ReadLine();
+            var tokens = inputInfo.Split(" =->:".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            var legion = tokens[1];
+            var activities = long.Parse(tokens[0]);
+            var soldier = tokens[2];
+            var count = long.Parse(tokens[3]);
+     //1    //пълним листа ако в него Няма клас с конкретно име;
+                // така влизаме в листа и търсим "Any" обект с това име.
+            if (!legionsList.Any(x => x.Name == legion))
+            {
+                //правим нов обект от конкретния клас
+                var currentLegion = new Legion();
+                //попълваме елементите на класа
+                currentLegion.Name = legion;
+                currentLegion.LastActivities = activities;
+                //при вложен речник правим нов речник
+                currentLegion.Soldiers = new Dictionary<string, long>();
+                //попълваме вложеният речник
+                currentLegion.Soldiers.Add(soldier, count);
+                
+                //добавяме новосъздаденият обект от съответния клас в листа от обекти
+                legionsList.Add(currentLegion);
+            }
+     //2    Ако има вече създаден обект с такова име
+            else
+            {
+                //правим отново "текущ" обект който е равен на първият 
+                //(или "дефолтен") срещнат такъв обект в листа със същото име
+                Legion currentLegion = legionsList.FirstOrDefault(x => x.Name == legion);
+                
+                // в зависимост какво се иска в задачата правим необходимите условия
+                if (currentLegion.LastActivities < activities)
+                {
+                    //в конкретния случай  заменяме активитито с настоящето ако то е по-голямо
+                    currentLegion.LastActivities = activities;
+                } 
+                 //ако в съществуващия обект обаче няма вложен речник с такова име правим следното:
+                if (!currentLegion.Soldiers.ContainsKey(soldier))
+                {
+                    //създаваме  вложен речник с конкретните параметри
+                    currentLegion.Soldiers.Add(soldier, count);
+                }
+                //ако в съществуващия обект има вложен речник с такъв Ключ, 
+                //правим каквото е казано в конкретното условие
+                else
+                {
+                    //в случая добаваме новите стойности на Value-то
+                    currentLegion.Soldiers[soldier] += count;
+                }
+            }
+        }
+        //Принтиране!!!ПРИНТИРАНЕ
+        var printArgs = Console.ReadLine().Split('\\');
+        //зададени са ни конкретни условия
+        if (printArgs.Count() > 1)
+        {
+            
+            var activity = long.Parse(printArgs[0]);
+            var soldierType = printArgs[1];
+            //взимаме тези обекти от листа които по-малки от зададена стойност
+            //в конкретния пример- 1ви Where()/, и които съдържат определен ключ
+            //във вложеният речник, но искат да се сортира и по Value-то на речника, 
+            //което е проблем с Linq, поради което добавяме стойностите които искаме
+            //да сортираме в помощен речник:
+            var dict = new Dictionary<string, long>();
+
+            foreach (var legion in legionsList
+                .Where(x => x.LastActivities < activity)
+                .Where(y => y.Soldiers.ContainsKey(soldierType)))
+            {
+                //пълним помощния речник:
+                if (!dict.ContainsKey(legion.Name))
+                {
+                    dict.Add(legion.Name, legion.Soldiers[soldierType]);
+                }
+            }
+            //след което сортираме речника по начин който ни изискват и принтираме
+            foreach (var item in dict.OrderByDescending(x => x.Value))
+            {
+                Console.WriteLine($"{item.Key} -> {item.Value}");
+            }
+        }
+        //същия подход като на горния случай
+        else
+        {
+            var soldiersType = printArgs[0];
+            var dict = new Dictionary<string, long>();
+            foreach (var legion in legionsList.Where(x => x.Soldiers.ContainsKey(soldiersType)))
+            {
+                if (!dict.ContainsKey(legion.Name))
+                {
+                    dict.Add(legion.Name, legion.LastActivities);
+                }
+
+            }
+            foreach (var item in dict.OrderByDescending(x => x.Value))
+            {
+                Console.WriteLine($"{item.Value} : {item.Key}");
+            }
+        }
+    }
+}
+
+=====================================================================================
+Dragonarmy с Class Dragon и метод "Create Dragon"
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _11.Dragon_Army
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            var dragonsList = new List<Dragon>();
+
+            for (int i = 0; i < n; i++)
+            {
+                var input = Console.ReadLine().Split().ToArray();
+                Dragon dragon = CreateDragon(input);
+
+                if (!dragonsList.Any(d => d.Type == dragon.Type && d.Name == dragon.Name))
+                {
+                    dragonsList.Add(dragon);
+                }
+                else
+                {
+                    var tempDrag = dragonsList.FirstOrDefault(d => d.Type == dragon.Type && d.Name == dragon.Name);
+                    if (input[2] == "null")
+                    {
+                        tempDrag.Damage = 45;
+                    }
+                    else
+                    {
+                        tempDrag.Damage = int.Parse(input[2]);
+                    }
+                    if (input[3] == "null")
+                    {
+                        tempDrag.Health = 250;
+                    }
+                    else
+                    {
+                        tempDrag.Health = int.Parse(input[3]);
+                    }
+                    if (input[4] == "null")
+                    {
+                        tempDrag.Armor = 10;
+                    }
+                    else
+                    {
+                        tempDrag.Armor = int.Parse(input[4]);
+                    }
+                }
+            }
+
+            foreach (var typesDragon in dragonsList.Select(d => d.Type).Distinct().ToList())
+            {
+                var avarageDamage = dragonsList
+                    .Where(d => d.Type == typesDragon)
+                    .Average(e => e.Damage);
+                var avarageHealth = dragonsList
+                    .Where(d => d.Type == typesDragon)
+                    .Average(e => e.Health);
+                var avarageArmor = dragonsList
+                    .Where(d => d.Type == typesDragon)
+                    .Average(e => e.Armor);
+
+                Console.WriteLine($"{typesDragon}::({avarageDamage:f2}/{avarageHealth:f2}/{avarageArmor:f2})");
+
+                foreach (var drago in dragonsList.Where(d => d.Type == typesDragon).OrderBy(e => e.Name))
+                {
+                    Console.WriteLine($"-{drago.Name} -> damage: {drago.Damage}, health: {drago.Health}, armor: {drago.Armor}");
+                }
+            }
+        }
+
+        public static Dragon CreateDragon(string[] input)
+        {
+            Dragon dragon = new Dragon();
+            dragon.Type = input[0];
+            dragon.Name = input[1];
+
+            if (input[2] == "null")
+            {
+                dragon.Damage = 45;
+            }
+            else
+            {
+                dragon.Damage = int.Parse(input[2]);
+            }
+            if (input[3] == "null")
+            {
+                dragon.Health = 250;
+            }
+            else
+            {
+                dragon.Health = int.Parse(input[3]);
+            }
+            if (input[4] == "null")
+            {
+                dragon.Armor = 10;
+            }
+            else
+            {
+                dragon.Armor = int.Parse(input[4]);
+            }
+
+            return dragon;
+        }
+    }
+
+    public class Dragon
+    {
+        public string Type { get; set; }
+        public string Name { get; set; }
+        public int Damage { get; set; }
+        public int Health { get; set; }
+        public int Armor { get; set; }
+    }
+}
+=====================================================================================================
+class Program
+{
+    class Pokemon
+    {
+        public string Name { get; set; }
+        public string Evo { get; set; }
+        public long Index { get; set; }
+    }
+    static void Main(string[] args)
+    {
+        var input = Console.ReadLine();
+        var pokemonList = new List<Pokemon>();
+
+        while (input != "wubbalubbadubdub")
+        {
+            var tokens = input.Split(" -> ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
+            if (tokens.Length == 1)
+            {
+                var pokName = tokens[0];
+                if (pokemonList.Any(x => x.Name == pokName))
+                {
+                    Console.WriteLine($"# {pokName}");
+                    foreach (var pokemon in pokemonList.Where(x => x.Name == pokName).ToList())
+                    {
+                        Console.WriteLine($"{pokemon.Evo} <-> {pokemon.Index}");
+                    }
+                }
+            }
+            else
+            {
+                var pokemonName = tokens[0];
+                var evoType = tokens[1];
+                var evoIndex = long.Parse(tokens[2]);
+
+                Pokemon currentPokemon = new Pokemon();
+                currentPokemon.Name = pokemonName;
+                currentPokemon.Index = evoIndex;
+                currentPokemon.Evo = evoType;
+                pokemonList.Add(currentPokemon);
+            }
+            input = Console.ReadLine();
+        }
+        while (pokemonList.Count != 0)
+        {
+            Pokemon currentPokemon = pokemonList[0];
+            Console.WriteLine($"# {currentPokemon.Name}");
+            foreach (var pokemon in pokemonList.Where(x => x.Name == currentPokemon.Name).OrderByDescending(x => x.Index))
+            {
+                Console.WriteLine($"{pokemon.Evo} <-> {pokemon.Index}");
+            }
+            pokemonList.RemoveAll(x => x.Name == currentPokemon.Name);
+        }
+    }
+}
